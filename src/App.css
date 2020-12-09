@@ -1,0 +1,71 @@
+.son > table {
+    margin-top: 10px;;
+    background-color: #d0d0d0;
+}
+
+.pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.lookChange > button {
+    background-color: #4b4b4b;
+    border: none;
+}
+
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: black;
+    border: none;
+}
+
+input[type=number] {
+    width: 80px;
+}
+
+.add-product {
+    position: sticky;
+    left: 20px;
+    top: 0;
+}
+
+.my-nav ul {
+    list-style-type: none;
+    /*display: flex;*/
+    /*display: inline;*/
+    /*align-content: center;*/
+    /*justify-content: right;*/
+    padding: 0;
+    margin: 0;
+}
+
+.my-nav li {
+    display: inline;
+    padding: 10px;
+    margin: 5px;
+}
+.my-nav a {
+    color: white;
+}
+
+.my-nav a:hover {
+    color: #2fe74d;
+    text-decoration: none;
+}
+
+.my-nav {
+    background-color: #292929;
+    color: white;
+}
+
+.son-checkbox {
+    position: absolute;
+}
+
+nav li {
+    margin: 10px;
+}
+
+.table-header {
+    background-color: #343434;
+    color: white;
+}
