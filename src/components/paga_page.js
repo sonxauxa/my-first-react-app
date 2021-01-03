@@ -2,62 +2,51 @@ import React from 'react';
 import '../App.css';
 import UpdateProduct from "./update_product";
 import DeleteProduct from "./delete_product";
-// import {Link} from "react-router-dom";
 import AddProduct from "./add_product";
 import Pagination from "./pagination";
 
-const URL = "http://127.0.0.1:8000/list1/?"
+const URL = `http://127.0.0.1:8000/list1/?`;
+
 class Show extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             data: [],
             isLoading: false,
-            page_size: 5,
+            page_size: 2,
             page: 1,
         }
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.sendData = this.sendData.bind(this)
     }
 
     componentDidMount() {
-        // const {page, page_size} = this.state
-        fetch(`http://127.0.0.1:8000/list1/?page=${this.state.page}&size=${this.state.page_size}`).then(res => res.json()).then(json => {
+        const {page, page_size} = this.state
+        this.sendData(URL, page, page_size)
+    }
+
+    sendData(url, page1, page_size, event) {
+        fetch(`${url}page=${page1}&size=${page_size}`).then(res => res.json()).then(json => {
             this.setState({
                 isLoading: true,
                 data: json,
             })
-        });
+        })
+        console.log(this.state.data);
     }
 
     componentWillUnmount() {
-        this.setState({
-            isLoading: false
-        })
+        this.setState({isLoading: false})
     }
 
     handleChange(event) {
-        this.setState({page_size: event.target.value});
+        const {page} = this.state
+        this.setState({page_size: event.target.value})
+        this.sendData(URL, page, event.target.value)
     }
 
-    handleSubmit(event) {
-        event.preventDefault();
-        fetch(`${URL}${this.state.page}&size=${this.state.page_size}`).then(res => res.json()).then(json => {
-            this.setState({
-                isLoading: true,
-                data: json,
-            })
-        });
-    };
-
     render() {
-        const sendPage = (page) => fetch(`http://127.0.0.1:8000/list1/?page=${page}&size=${this.state.page_size}`).then(res => res.json()).then(json => {
-            this.setState({
-                page: page,
-                isLoading: true,
-                data: json,
-            });
-        })
+
         let {isLoading, data} = this.state;
         const isLoad = (item) => {
             if (data) {
@@ -70,7 +59,6 @@ class Show extends React.Component {
         const isDelete = (item) => {
             if (data) {
                 return <DeleteProduct item={item}/>
-
             } else {
                 return <p>something wrong</p>
             }
@@ -81,17 +69,18 @@ class Show extends React.Component {
                 {isLoading ?
                     <div>
                         <div className="container son">
+                                <span id='mes'>
+                                </span>
                             <form onSubmit={this.handleSubmit} className='d-flex justify-content-end'>
                                 <label>
                                     <span>page size: </span>
-                                    <select value={this.state.value} onChange={this.handleChange}>
+                                    <select value={this.state.page_size} onChange={this.handleChange}>
+                                        <option value={2}>2</option>
+                                        <option value={3}>3</option>
                                         <option value={5}>5</option>
-                                        <option value={10}>10</option>
-                                        <option value={15}>15</option>
                                         <option value={20}>20</option>
                                     </select>
                                 </label>
-                                <input type="submit" value="Change" className='btn btn-sm btn-danger'/>
                             </form>
                             <table className="table table-hover my-table">
                                 <thead>
@@ -132,12 +121,12 @@ class Show extends React.Component {
                                     </tbody>
                                 ))}
                             </table>
-                            <Pagination total={data.count} size={this.state.page_size} paginate={sendPage}
-                                        current={this.state.page}/>
+                            <Pagination total={data.count} size={this.state.page_size} paginate={this.sendData}
+                                        current={this.state.page} url={URL}/>
                         </div>
                         <AddProduct/>
                     </div>
-                    : <div>b</div>}
+                    : <div>show time</div>}
             </div>
         );
     }

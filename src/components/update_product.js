@@ -41,13 +41,9 @@ function UpdateProduct({item}) {
             'product_quantity': quantity,
             'product_type': type
         }).then(res => {
-                console.log('a', res)
-                document.getElementById('mes').innerHTML = res.data
+                document.getElementById('mes1').innerHTML = Object.values(res.data)
             }
-        ).catch((error) => {
-                console.error('error', error)
-            }
-        );
+        )
     };
     return (
         <>
@@ -99,6 +95,8 @@ function UpdateProduct({item}) {
                                 </tbody>
                             </table>
                         </div>
+                        <strong style={{'color': 'red', fontStyle: 'italic'}} id='mes1'>
+                        </strong>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>

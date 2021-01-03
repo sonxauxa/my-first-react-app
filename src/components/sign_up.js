@@ -3,7 +3,7 @@ import axios from 'axios';
 import {useHistory} from 'react-router-dom';
 
 function SignUp() {
-    const history = useHistory();
+    axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';    const history = useHistory();
     const API_URL = 'http://127.0.0.1:8000/regis/';
     const [username1, setUsername] = useState('');
     const [password1, setPassword] = useState('');
@@ -42,9 +42,9 @@ function SignUp() {
                 'first_name': firstname,
                 'last_name': lastname,
             }).then(res => {
-                    console.log(res);
-                    console.log({res})
-                    history.push('login/')
+                    console.log(res.data);
+                    // console.log({res})
+                    // history.push('login/')
                 }
             ).catch((error) => {
                     console.error('error', error.data)
@@ -52,14 +52,13 @@ function SignUp() {
             )
 
         } else {
-            document.getElementById('alert').innerHTML = 'error'
+            console.log('check your password')
         }
     };
     return (
         <div className='container'>
             Sign up page
-            <p id='alert'>
-            </p>
+
             <form>
                 <input type='text' onChange={handleUsername} placeholder='username'/><br/>
                 <input type='email' onChange={handleEmail} placeholder='email'/><br/>

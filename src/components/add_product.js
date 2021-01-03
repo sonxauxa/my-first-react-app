@@ -34,12 +34,9 @@ function AddProduct() {
             'product_quantity': quantity,
             'product_type': type
         }).then(res => {
-                document.getElementById('mes').innerHTML = res.statusText
+                document.getElementById('mes1').innerHTML = Object.values(res.data)
             }
-        ).catch((error) => {
-                console.error('s', error)
-            }
-        );
+        )
     };
     return (
         <>
@@ -48,8 +45,6 @@ function AddProduct() {
                 </i>
             </button>
             <Modal show={show} onHide={handleClose}>
-                <div id='mes'>
-                </div>
                 <form>
                     <Modal.Header closeButton>
                         <Modal.Title>Add Product</Modal.Title>
@@ -72,6 +67,8 @@ function AddProduct() {
                             </select>
                         </label>
                         <br/>
+                        <strong style={{'color': 'red', 'font-style': 'italic'}} id='mes1'>
+                        </strong>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>

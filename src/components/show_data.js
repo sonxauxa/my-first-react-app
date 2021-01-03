@@ -12,7 +12,7 @@ const URL = 'http://127.0.0.1:8000/list/';
 function ShowData() {
     useEffect(() => {
         sRequest().then(r => console.log('ok', r));
-    }, []);
+    });
     const [requestData, setRequestData] = useState([]);
     const sRequest = async () => {
         const sendRequest = await fetch(URL);
@@ -82,9 +82,7 @@ function ShowData() {
             <div className='add-product'>
                 <AddProduct/>
             </div>
-            {/*<div className='footer'>*/}
-            {/*    <h3>this is footer</h3>*/}
-            {/*</div>*/}
+
         </div>
     )
 }
